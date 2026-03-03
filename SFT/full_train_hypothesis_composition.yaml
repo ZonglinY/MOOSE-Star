@@ -1,0 +1,60 @@
+### CONFIGURATION FOR FULL PARAMETER TRAINING ###
+### ZeRO-3 + lower grad_clip to stabilize loss ###
+### R1-Distill Native Format: No system prompt, reasoning starts directly ###
+
+model_name_or_path: ${MODEL_DIR}/DeepSeek-R1-Distill-Qwen-7B
+template: deepseekr1  # Correct template for R1-Distill models (adds <think> to prompt)
+
+# Training data: mixed normal + bounded composition
+dataset_dir: ${HC_MIXED_SFT_DIR}
+dataset: normal_composition,bounded_composition  # Keys from HC/dataset_info.json in TOMATO-Star-SFT-Data-R1D-32B
+# eval_dataset: eval  # No eval set for rejection sampling data
+
+# Full Parameter Training (no freezing)
+finetuning_type: full
+
+# Training Setup
+stage: sft
+do_train: true
+mask_history: true
+disable_shuffling: false
+seed: 42
+
+# Sequence and Batching
+cutoff_len: 8192
+packing: false                     # Disabled: packing + ZeRO-3 causes OOM/illegal memory access
+per_device_train_batch_size: 1     # Conservative for full param + ZeRO-3
+gradient_accumulation_steps: 2     # For 64 GPUs: 1 * 2 * 64 = 128 effective batch
+
+# Preprocessing (Parallel Tokenization)
+preprocessing_num_workers: 32
+overwrite_cache: true
+
+# Optimization
+learning_rate: 1.0e-5              # Standard for full parameter training
+lr_scheduler_type: cosine
+warmup_ratio: 0.05                 # 5% warmup
+weight_decay: 0.01
+num_train_epochs: 1                # 1 epoch to avoid overfitting
+max_grad_norm: 0.5                 # Clamp aggressive gradients to prevent explosion
+
+# Precision Settings
+bf16: true
+fp16: false
+gradient_checkpointing: true
+flash_attn: sdpa  # Use PyTorch built-in SDPA
+
+# DeepSpeed ZeRO-3
+deepspeed: ./SFT/deepspeed_zero3.json
+
+# Evaluation Settings (disabled)
+do_eval: false
+
+# Saving and Logging
+save_strategy: steps
+save_steps: 100
+save_total_limit: 1
+logging_steps: 1
+report_to: tensorboard
+
+output_dir: ${HC_CHECKPOINT_DIR}

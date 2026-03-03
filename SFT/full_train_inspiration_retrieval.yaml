@@ -1,0 +1,62 @@
+### CONFIGURATION FOR INSPIRATION RETRIEVAL SFT - FULL PARAMETER ###
+### ZeRO-3 + lower weight_decay to stabilize loss ###
+### R1-Distill Native Format: No system prompt, reasoning starts directly ###
+
+model_name_or_path: ${MODEL_DIR}/DeepSeek-R1-Distill-Qwen-7B
+template: deepseekr1  # Correct template for R1-Distill models (adds <think> to prompt)
+dataset_dir: ${IR_SFT_DATA_DIR}
+dataset: train  # Mapped to actual file in dataset_info.json
+# eval_dataset: eval  # Disabled - no eval during training
+
+### RESUME TRAINING CONFIGURATION ###
+# To resume from checkpoint: uncomment the line below
+# resume_from_checkpoint: ${IR_CHECKPOINT_DIR}
+
+# Full Parameter Training (no freezing)
+finetuning_type: full
+
+# Training Setup
+stage: sft
+do_train: true
+mask_history: true
+disable_shuffling: false
+seed: 42
+
+# Sequence and Batching
+cutoff_len: 16384  # Sufficient for all samples
+packing: false
+per_device_train_batch_size: 1  # Conservative for full param + ZeRO-3
+gradient_accumulation_steps: 1  # For 128 GPUs: 1 * 1 * 128 = 128 effective batch
+
+# Preprocessing (Parallel Tokenization)
+preprocessing_num_workers: 32
+overwrite_cache: true
+
+# Optimization
+learning_rate: 1.0e-5
+lr_scheduler_type: cosine
+warmup_ratio: 0.05
+weight_decay: 0.01
+num_train_epochs: 1
+max_grad_norm: 0.5
+
+# Precision Settings
+bf16: true
+fp16: false
+gradient_checkpointing: true
+flash_attn: sdpa  # Use PyTorch built-in SDPA
+
+# DeepSpeed ZeRO-3
+deepspeed: ./SFT/deepspeed_zero3.json
+
+# Evaluation Settings (disabled)
+do_eval: false
+
+# Saving and Logging
+save_strategy: steps
+save_steps: 100
+save_total_limit: 1
+logging_steps: 1
+report_to: tensorboard
+
+output_dir: ${IR_CHECKPOINT_DIR}
