@@ -14,8 +14,10 @@ MOOSE-Star is a framework for training LLMs to generate scientific hypotheses wi
 |---|---|---|
 | TOMATO-Star | Decomposed biomedical papers dataset (107K train, 1.6K eval) | [HuggingFace](https://huggingface.co/datasets/ZonglinY/TOMATO-Star) |
 | TOMATO-Star-SFT-Data-R1D-32B | SFT training data: HC train 96K + bounded train 17K + IR train 150K + IR eval 2.3K (HC eval uses TOMATO-Star directly) | [HuggingFace](https://huggingface.co/datasets/ZonglinY/TOMATO-Star-SFT-Data-R1D-32B) |
-| MOOSE-Star-HC-R1D-7B | Hypothesis Composition model (MS-HC-7B in paper) | [HuggingFace](https://huggingface.co/ZonglinY/MOOSE-Star-HC-R1D-7B) |
 | MOOSE-Star-IR-R1D-7B | Inspiration Retrieval model (MS-IR-7B in paper) | [HuggingFace](https://huggingface.co/ZonglinY/MOOSE-Star-IR-R1D-7B) |
+| MOOSE-Star-HC-R1D-7B | Hypothesis Composition model (MS-HC-7B in paper) | [HuggingFace](https://huggingface.co/ZonglinY/MOOSE-Star-HC-R1D-7B) |
+| MOOSE-Star-R1D-7B | Multi-task (Inspiration Retrieval + Hypothesis Composition) model (MS-7B in paper) | [HuggingFace](https://huggingface.co/ZonglinY/MOOSE-Star-R1D-7B) |
+
 
 ## Installation
 
