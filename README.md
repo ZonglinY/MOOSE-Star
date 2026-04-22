@@ -49,6 +49,7 @@ To use the released models for inference without reproducing the training pipeli
 # Download from HuggingFace
 huggingface-cli download ZonglinY/MOOSE-Star-HC-R1D-7B --local-dir ./models/MOOSE-Star-HC-R1D-7B
 huggingface-cli download ZonglinY/MOOSE-Star-IR-R1D-7B --local-dir ./models/MOOSE-Star-IR-R1D-7B
+huggingface-cli download ZonglinY/MOOSE-Star-R1D-7B --local-dir ./models/MOOSE-Star-R1D-7B
 ```
 
 ### 2. Hypothesis Composition Inference
