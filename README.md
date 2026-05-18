@@ -1,7 +1,7 @@
 # MOOSE-Star: Unlocking Tractable Training for Scientific Discovery by Breaking the Complexity Barrier
 
 [![arXiv](https://img.shields.io/badge/arXiv-2603.03756-b31b1b.svg)](https://arxiv.org/abs/2603.03756)
-[![HuggingFace](https://img.shields.io/badge/HuggingFace-Collection-ffd21e.svg)](https://huggingface.co/ZonglinY)
+[![HuggingFace](https://img.shields.io/badge/HuggingFace-Collection-ffd21e.svg)](https://huggingface.co/collections/ZonglinY/moose-star-models-and-data)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
 ## Abstract
@@ -304,11 +304,11 @@ MOOSE-Star/
 If you find this work useful, please cite our paper:
 
 ```bibtex
-@article{yang2025moosestar,
+@inproceedings{yang2026moosestar,
   title={MOOSE-Star: Unlocking Tractable Training for Scientific Discovery by Breaking the Complexity Barrier},
   author={Yang, Zonglin and Bing, Lidong},
-  journal={arXiv preprint arXiv:2603.03756},
-  year={2025}
+  booktitle={Proceedings of the 43rd International Conference on Machine Learning},
+  year={2026}
 }
 ```
 
